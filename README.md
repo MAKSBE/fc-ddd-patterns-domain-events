@@ -1,6 +1,16 @@
 # Domain Events - DDD Patterns
 
-Este projeto é uma implementação de Domain Events utilizando Domain-Driven Design (DDD) e Patterns. O objetivo é demonstrar como eventos de domínio podem ser utilizados para notificar mudanças importantes no estado do domínio.
+Este é um projeto que atende o desafio do modulo DDD da Full Cycle, o desafio é:
+Implemente dois Eventos de Domínio para o agregado de Customer.
+
+O primeiro evento deverá acontecer quando um novo Customer é criado. Nesse ponto, crie 2 handlers exibindo um "console.log". 
+
+Handler1: EnviaConsoleLog1Handler. Mensagem: "Esse é o primeiro console.log do evento: CustomerCreated".
+Handler2: EnviaConsoleLog2Handler. Mensagem: "Esse é o segundo console.log do evento: CustomerCreated". 
+O segundo evento deverá ser disparado quando o endereço do Customer é trocado (método changeAddress()). Nesse caso, o ID, Nome, bem como os dados do endereço devem ser passados ao evento.
+
+Handler: EnviaConsoleLogHandler. Mensagem: "Endereço do cliente: {id}, {nome} alterado para: {endereco}".
+Todos os testes devem ser realizados para garantir o bom funcionamento dos eventos.
 
 ## Estrutura do Projeto
 
@@ -35,24 +45,39 @@ Evento disparado quando o endereço de um cliente é alterado.
 - `envia-console-log2.handler.ts`: Registra no console quando o endereço de um cliente é alterado
 - `envia-console-log-address.handler.ts`: Handler adicional para mudança de endereço
 
+## Validações
+
+O projeto implementa várias camadas de validação seguindo os princípios do DDD:
+
+### Validações na Entidade Customer
+- ID: Não pode ser vazio
+- Nome: Não pode ser vazio
+- Ativação: Requer endereço definido para ativar um cliente
+
+### Validações no Value Object Address
+- Rua: Não pode ser vazia
+- Número: Não pode ser zero
+- CEP: Não pode ser vazio
+- Cidade: Não pode ser vazia
+
+### Validações nos Eventos
+- Testes unitários garantem que:
+  - Eventos são criados corretamente
+  - Handlers são notificados adequadamente
+  - Notificações são enviadas conforme esperado
+
+### Validações nos Handlers
+- Testes garantem que:
+  - Processamento correto dos eventos
+  - Execução das ações esperadas
+  - Logs e notificações são gerados adequadamente
+
 ## Testes
 
 O projeto inclui testes unitários para todos os eventos e handlers, garantindo que:
 - Os eventos são criados corretamente
 - Os handlers processam os eventos adequadamente
 - As notificações são enviadas conforme esperado
-
-## Como Executar
-
-1. Clone o repositório
-2. Instale as dependências:
-   ```bash
-   npm install
-   ```
-3. Execute os testes:
-   ```bash
-   npm test
-   ```
 
 ## Tecnologias Utilizadas
 
@@ -67,6 +92,4 @@ O projeto inclui testes unitários para todos os eventos e handlers, garantindo 
 - Event Handlers
 - Observer Pattern
 
-## Contribuição
-
-Sinta-se à vontade para contribuir com o projeto através de pull requests ou reportando issues. 
+## Desenvolvido por Gilson Moreira dos Santos
